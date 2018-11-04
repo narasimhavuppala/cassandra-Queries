@@ -1,10 +1,16 @@
-/*CREATE TABLE Student
+
+CREATE KEYSPACE university
+WITH durable_writes = true
+AND replication = {
+	'class' : 'SimpleStrategy',
+	'replication_factor' : 3
+};
+
+
+CREATE TABLE Mapper
 (id int primary key, 
 name varchar
-);*/
---Insert into Student(id,name) values (1,'Narasimha');
+);
+Insert into Mapper(id,name) values (6,'Narasimha');
 
-select * from Student;
-
-delete from Student;
---nodetool.bat tablehistograms test books
+select * from Mapper;
