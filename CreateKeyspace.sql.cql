@@ -9,3 +9,18 @@ AND replication = {
 
 
 DESCRIBE  university;
+
+USE university;
+
+--Altering replication factor
+
+ALTER KEYSPACE keyspace_name 
+WITH REPLICATION =  { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+
+nodetool repair --full keyspace_name
+
+
+
+DROP KEYSPACE keyspace_name;
+
+
