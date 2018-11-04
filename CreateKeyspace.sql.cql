@@ -1,16 +1,11 @@
-
-CREATE KEYSPACE university
+ 
+CREATE KEYSPACE IF NOT EXISTS university
 WITH durable_writes = true
 AND replication = {
 	'class' : 'SimpleStrategy',
-	'replication_factor' : 3
+	'replication_factor' : 2
 };
 
 
-CREATE TABLE Mapper
-(id int primary key, 
-name varchar
-);
-Insert into Mapper(id,name) values (6,'Narasimha');
 
-select * from Mapper;
+DESCRIBE  university;
