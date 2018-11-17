@@ -1,1 +1,0 @@
-ccm.py node1 json -k test --Here test is keyspace name..views the contents
