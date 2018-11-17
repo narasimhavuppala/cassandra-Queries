@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS cyclist_name 
+CREATE TABLE IF NOT EXISTS cyclist_name  
 ( id UUID PRIMARY KEY, 
   lastname text, 
   firstname text
