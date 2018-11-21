@@ -249,12 +249,6 @@ INSERT INTO cycling.calendar ( race_id, race_name, race_start_date, race_end_dat
 VALUES ( 103, 'Tour de France', '2015-07-04', '2015-07-26' );
 
 
-//WITH TTL
-INSERT INTO cycling.calendar (race_id, race_name, race_start_date, race_end_date) 
-VALUES (200, 'placeholder', '2015-05-27', '2015-05-27') USING TTL 300;
-
-UPDATE cycling.calendar USING TTL 300 
-SET race_name = 'dummy' WHERE race_id = 200 AND race_start_date = '2015-05-27' AND race_end_date = '2015-05-27';
 
 
 select * from cycling.calendar;
@@ -282,50 +276,7 @@ VALUES ( 2015, 07, [ 'Tour de France' ] );
 
 select * from cycling.upcoming_calendar;
 
-/********************************* Q8:****************************************************/
-
-// SIMPLE USER-DEFINED TYPE
-CREATE TYPE IF NOT EXISTS cycling.fullname (
-	firstname text,
-	lastname text
-);
-
-CREATE TABLE IF NOT EXISTS cycling.race_winners (
-	race_name text,
-	race_position int,
-	cyclist_name FROZEN<fullname>,
-	PRIMARY KEY (race_name, race_position)
-);
-
-INSERT INTO cycling.race_winners ( race_name, race_position, cyclist_name )
-VALUES ( 'National Championships South Africa WJ-ITT (CN)', 1, {
-	firstname : 'Frances',
-	lastname : 'DU TOUT'
-} );
-
-INSERT INTO cycling.race_winners ( race_name, race_position, cyclist_name )
-VALUES ( 'National Championships South Africa WJ-ITT (CN)', 2, {
-	firstname : 'Lynette',
-	lastname : 'BENSON'
-} );
-
-INSERT INTO cycling.race_winners ( race_name, race_position, cyclist_name )
-VALUES ( 'National Championships South Africa WJ-ITT (CN)', 3, {
-	firstname : 'Anja',
-	lastname : 'GERBER'
-} );
-
-INSERT INTO cycling.race_winners ( race_name, race_position, cyclist_name )
-VALUES ( 'National Championships South Africa WJ-ITT (CN)', 4, {
-	firstname : 'Ame',
-	lastname : 'VENTER'
-} );
-
-INSERT INTO cycling.race_winners ( race_name, race_position, cyclist_name )
-VALUES ( 'National Championships South Africa WJ-ITT (CN)', 5, {
-	firstname : 'Danielle',
-	lastname : 'VAN NIEKERK'
-} );
+/
 
 // Q9:
 // Find all races for a particular cyclist
