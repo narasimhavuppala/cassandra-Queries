@@ -167,6 +167,7 @@ where age = 18;
 
 // Display flag for riders
 // CREATE TABLE WITH STATIC COLUMN, example uses an integer to identify flag, but it could be a blob
+
 CREATE TABLE IF NOT EXISTS cycling.country_flag (
 	country text,
 	cyclist_name text,
@@ -190,9 +191,15 @@ select * from cycling.country_flag;
 
 // USE SELECT REPEATEDLY TO SHOW CHANGING (OR UNCHANGING) NATURE OF the column 'flag'
 
-// Q6:
+
+
+/********************************* Q6:****************************************************/
+
+
+
 // Find all teams that a cyclist has been a member of
-//CREATE TABLE WITH SET
+
+
 CREATE TABLE IF NOT EXISTS cycling.cyclist_career_teams (
 	id UUID PRIMARY KEY,
 	lastname text,
@@ -216,6 +223,9 @@ VALUES ( 1c9ebc13-1eab-4ad5-be87-dce433216d40, 'BRAND', { 'Rabobank-Liv Woman Cy
 
 select * from cycling.cyclist_career_teams;
 
+/********************************* Q7:****************************************************/
+
+
 // NOT A QUERY, JUST A TABLE FOR QUERIES
 // CREATE TABLE WITH LIST FOR UPDATE
 CREATE TABLE IF NOT EXISTS cycling.calendar (
@@ -238,6 +248,15 @@ VALUES ( 102, 'Tour de Suisse', '2015-06-13', '2015-06-21' );
 INSERT INTO cycling.calendar ( race_id, race_name, race_start_date, race_end_date )
 VALUES ( 103, 'Tour de France', '2015-07-04', '2015-07-26' );
 
+
+//WITH TTL
+INSERT INTO cycling.calendar (race_id, race_name, race_start_date, race_end_date) 
+VALUES (200, 'placeholder', '2015-05-27', '2015-05-27') USING TTL 300;
+
+UPDATE cycling.calendar USING TTL 300 
+SET race_name = 'dummy' WHERE race_id = 200 AND race_start_date = '2015-05-27' AND race_end_date = '2015-05-27';
+
+
 select * from cycling.calendar;
 
 // NEW FOR C*3.6
@@ -245,7 +264,8 @@ select * from cycling.calendar;
 // This query uses the clustering column "race_start_date" without an index and without using the partition key
 // but using ALLOW FILTERING
 
-// Q7:
+/********************************* Q7:****************************************************/
+
 // Find all calendar events for a particular year and month
 CREATE TABLE IF NOT EXISTS cycling.upcoming_calendar (
 	year int,
@@ -262,7 +282,8 @@ VALUES ( 2015, 07, [ 'Tour de France' ] );
 
 select * from cycling.upcoming_calendar;
 
-// Q8:
+/********************************* Q8:****************************************************/
+
 // SIMPLE USER-DEFINED TYPE
 CREATE TYPE IF NOT EXISTS cycling.fullname (
 	firstname text,
