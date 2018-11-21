@@ -153,11 +153,7 @@ VALUES ( 'COSTA', 'Adrien', 17, 15a116fc-b833-4da6-ab9a-4a7775752836 );
 select * from cycling.cyclist_id
 where firstname = 'Bram' and lastname = 'WELTEN';
 
-// If you want to search by age, an index can be added
-CREATE INDEX IF NOT EXISTS c_age ON cycling.cyclist_id (age);
 
-select * from cycling.cyclist_id
-where age = 18;
 
 
 
