@@ -1,10 +1,12 @@
 // CREATE UDA that computes the average value
 //CREATE TABLE WITH SIMPLE PRIMARY KEY: PARTITION KEY + 2 CLUSTERING COLUMNS
-CREATE OR REPLACE FUNCTION cycling.avgState ( state tuple<int, bigint>, val int ) CALLED ON NULL INPUT RETURNS
+CREATE OR REPLACE FUNCTION cycling.avgState ( state tuple<int, bigint>, val int ) 
+CALLED ON NULL INPUT RETURNS
 tuple<int, bigint>LANGUAGE java AS
 'if (val !=null) { state.setInt(0, state.getInt(0)+1); state.setLong(1, state.getLong(1)+val.intValue()); } return state;';
 
-CREATE OR REPLACE FUNCTION cycling.avgFinal ( state tuple<int, bigint>) CALLED ON NULL INPUT RETURNS double LANGUAGE
+CREATE OR REPLACE FUNCTION cycling.avgFinal ( state tuple<int, bigint>) CALLED ON NULL
+ INPUT RETURNS double LANGUAGE
 java AS
 'double r = 0; if (state.getInt(0) == 0) return null; r = state.getLong(1); r/= state.getInt(0); return Double.valueOf(r);';
 
