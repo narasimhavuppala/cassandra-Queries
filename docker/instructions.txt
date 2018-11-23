@@ -1,0 +1,39 @@
+Run node 1: 
+
+ docker run --name=n1 -d tobert/cassandra
+
+get IP of Node 1:
+
+	docker inspect -f '{{ .NetworkSettings.IPAddress }}' n1
+
+Add Node2 to the cluster:
+
+	docker run --name=n2 -d tobert/cassandra -seeds <<n1 IP>>
+
+	
+	Check the Clutser status: 
+
+		docker exec -it n1 nodetool status
+
+Add Node 3:
+
+	docker run --name=n3 -d tobert/cassandra -seeds <<n1 or n2 IP>>
+	
+	Check the Clutser status: 
+
+		docker exec -it n1 nodetool status
+
+
+
+Edit cassandra.yaml 
+
+	docker exec -it n1 /bin/bash
+	vi /data/conf/cassandra.yaml
+
+Stop cluster:
+
+	docker stop n1 n2 n3
+	
+Remove cluster:
+
+	docker rm n1 n2 n3
